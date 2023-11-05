@@ -10,7 +10,7 @@ import reset from 'styled-reset';
 import LoadingScreen from './components/loading-screen';
 import { auth } from './firebase';
 import ProtectedRoute from './components/protected-route';
-import Search from './routes/search';
+import Community from './routes/community';
 
 const router = createBrowserRouter([
   {
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         path: 'search',
         element: (
           <ProtectedRoute>
-            <Search />
+            <Community />
           </ProtectedRoute>
         ),
       },
