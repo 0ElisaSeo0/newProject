@@ -18,7 +18,11 @@ const Wrapper = styled.div`
   border-radius: 15px;
 `;
 
-const Column = styled.div``;
+const Column = styled.div`
+  &.photo {
+    position: relative;
+  }
+`;
 const Photo = styled.img`
   width: 100px;
   height: 100px;
@@ -51,17 +55,32 @@ const EditBtn = styled(DeleteBtn)`
 `;
 
 const EditPhotoLabel = styled.label`
-  background-color: tomato;
+  background-color: #010101;
   color: white;
   font-weight: 600;
-  border: 0;
+  border: 1px solid black;
   font-size: 12px;
   padding: 5px 10px;
   margin-right: 5px;
   border-radius: 5px;
+  position: absolute;
+  top: 70%;
+  left: 13%;
+  /* transform: translate(-50%, -50%); */
 `;
 const EditPhoto = styled.input`
   display: none;
+`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const FullBtn = styled.button`
+  padding: 5px 30px;
+  margin-right: 10px;
 `;
 
 export default function Post({ username, photo, text, userId, id }: IPost) {
@@ -134,45 +153,54 @@ export default function Post({ username, photo, text, userId, id }: IPost) {
   };
   return (
     <Wrapper>
-      <Column>
-        <Username>{username}</Username>
-        {isEditing ? (
-          <>
-            <textarea
-              value={editedText}
-              onChange={(e) => setEditedText(e.target.value)}
-              rows={4}
-              cols={50}
-            />
-            <button onClick={onSaveEdit}>저장</button>
-            <button onClick={onCancelEdit}>취소</button>
-          </>
-        ) : (
-          <Payload>{text}</Payload>
-        )}
-        {user?.uid === userId ? (
-          <>
-            <EditBtn onClick={onEdit}>수정</EditBtn>
-            <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
-          </>
-        ) : null}
-      </Column>
-      {photo ? (
+      <>
         <Column>
-          <Photo src={photo} />
+          <Username>{username}</Username>
           {isEditing ? (
             <>
-              <EditPhotoLabel htmlFor="photo">수정</EditPhotoLabel>
-              <EditPhoto
-                onChange={onPhotoChange}
-                type="file"
-                id="photo"
-                accept="image/*"
+              <textarea
+                value={editedText}
+                onChange={(e) => setEditedText(e.target.value)}
+                rows={4}
+                cols={50}
               />
+            </>
+          ) : (
+            <Payload>{text}</Payload>
+          )}
+          {user?.uid === userId ? (
+            <>
+              <EditBtn onClick={onEdit}>수정</EditBtn>
+              <DeleteBtn onClick={onDelete}>삭제</DeleteBtn>
             </>
           ) : null}
         </Column>
-      ) : null}
+        {photo ? (
+          <Column className="photo">
+            <Photo src={photo} />
+            {isEditing ? (
+              <>
+                <EditPhotoLabel htmlFor="photo">수정</EditPhotoLabel>
+                <EditPhoto
+                  onChange={onPhotoChange}
+                  type="file"
+                  id="photo"
+                  accept="image/*"
+                />
+              </>
+            ) : null}
+          </Column>
+        ) : null}
+      </>
+      <Column>
+        {' '}
+        {isEditing ? (
+          <Container>
+            <FullBtn onClick={onSaveEdit}>저장</FullBtn>
+            <FullBtn onClick={onCancelEdit}>취소</FullBtn>
+          </Container>
+        ) : null}
+      </Column>
     </Wrapper>
   );
 }
