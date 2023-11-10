@@ -106,7 +106,7 @@ export default function PostTweetForm() {
     <Form onSubmit={onSubmit}>
       <TextArea
         required
-        rows={5}
+        rows={2}
         maxLength={180}
         onChange={onChange}
         value={text}

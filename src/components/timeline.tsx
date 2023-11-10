@@ -13,7 +13,7 @@ import Post from './post';
 
 export interface IPost {
   id: string;
-  photo?: string;
+  photo?: string | null;
   text: string;
   userId: string;
   username: string;
@@ -22,6 +22,7 @@ export interface IPost {
 
 const Wrapper = styled.div`
   overflow-y: scroll;
+  margin-bottom: 50px;
 `;
 
 export default function Timeline() {
@@ -63,6 +64,7 @@ export default function Timeline() {
       });
     };
     fetchPosts();
+    console.log('timeline11');
     return () => {
       unsubscribe && unsubscribe();
     };

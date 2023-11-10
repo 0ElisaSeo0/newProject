@@ -101,10 +101,11 @@ export default function Post({ username, photo, text, userId, id }: IPost) {
     }
     try {
       const postRef = doc(db, 'posts', id);
-      const updatedData = {
+      const updatedData: { text: string; photo?: string } = {
         text: editedText,
       };
-      if (editedPhoto !== null && editedPhoto !== photo) {
+
+      if (editedPhoto && editedPhoto !== null) {
         const locationRef = ref(storage, `posts/${user.uid}/${id}`);
 
         const result = await uploadBytes(locationRef, editedPhoto);
@@ -121,9 +122,6 @@ export default function Post({ username, photo, text, userId, id }: IPost) {
   const onCancelEdit = () => {
     setIsEditing(false);
     setEditedText(text);
-    if (photo) {
-      setEditedPhoto(photo);
-    }
   };
 
   const onPhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {

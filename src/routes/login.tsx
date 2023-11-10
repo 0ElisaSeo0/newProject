@@ -46,7 +46,9 @@ export default function Login() {
         console.log(e.code);
         if (e.code === 'auth/invalid-email') {
           setError('이메일이 잘못되었습니다');
-        } else if (e.code === 'auth/wrong-password') {
+        } else if (
+          e.code === ('auth/wrong-password' || 'auth/invalid-login-credentials')
+        ) {
           setError('비밀번호가 잘못되었습니다. 다시 입력해주세요.');
         }
       }

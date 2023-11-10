@@ -11,6 +11,9 @@ import LoadingScreen from './components/loading-screen';
 import { auth } from './firebase';
 import ProtectedRoute from './components/protected-route';
 import Community from './routes/community';
+import Estimate from './routes/estimate';
+import Owner from './routes/owner';
+import Documents from './routes/documents';
 
 const router = createBrowserRouter([
   {
@@ -46,6 +49,18 @@ const router = createBrowserRouter([
   {
     path: '/create-account',
     element: <CreateAccount />,
+  },
+  {
+    path: '/estimate',
+    element: <Estimate />,
+  },
+  {
+    path: '/documents',
+    element: <Documents />,
+  },
+  {
+    path: '/owner',
+    element: <Owner />,
   },
 ]);
 
